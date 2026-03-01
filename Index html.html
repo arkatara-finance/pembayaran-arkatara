@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pembayaran Kas Arkatara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .mobile-container {
+            max-width: 420px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 100px;
+        }
+        .header-bg {
+            background: linear-gradient(180deg, #1e3a8a 0%, #3b82f6 100%);
+            height: 220px;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+        }
+        #toast {
+            visibility: hidden;
+            background-color: #0f172a;
+            color: #fff;
+            text-align: center;
+            border-radius: 50px;
+            padding: 12px 24px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 110px;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: 700;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Zoom animation */
+        .qris-img {
+            transition: transform 0.3s ease;
+        }
+        .qris-img:active {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="mobile-container overflow-hidden">
+    
+    <!-- HEADER SECTION -->
+    <div class="header-bg relative p-8 text-white">
+        <div class="flex justify-between items-start">
+            <div>
+                <p class="text-blue-200 text-[10px] font-black uppercase tracking-widest mb-1">Arkatara Finance</p>
+                <h1 class="text-2xl font-extrabold tracking-tight">Iuran Kas Rutin</h1>
+            </div>
+            <div class="bg-white/20 backdrop-blur-md p-2 rounded-xl border border-white/30">
+                <i class="fas fa-wallet text-xl"></i>
+            </div>
+        </div>
+        
+        <!-- FLOATING INFO CARD -->
+        <div class="absolute -bottom-10 left-6 right-6 bg-white rounded-3xl p-5 card-shadow flex items-center justify-between border border-slate-50">
+            <div>
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Total Tagihan</p>
+                <p class="text-2xl font-black text-slate-800 tracking-tight">Rp 10.000 <span class="text-[10px] font-medium text-slate-400 italic">/bulan</span></p>
+            </div>
+            <div class="bg-green-100 text-green-700 text-[10px] font-black px-3 py-1 rounded-full uppercase">
+                Aktif
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="mt-16 px-6 space-y-6">
+        
+        <!-- QRIS SECTION -->
+        <div class="bg-white rounded-[32px] p-6 border border-slate-100 card-shadow text-center">
+            <div class="inline-block bg-blue-50 text-blue-700 text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-tighter mb-4">
+                Metode Scan QRIS
+            </div>
+            
+            <!-- QRIS IMAGE BOX -->
+            <div class="relative group">
+                <div class="bg-slate-50 rounded-3xl p-3 border-2 border-dashed border-slate-200 mb-4 overflow-hidden">
+                    <!-- Gunakan Direct Link Tanpa Iklan -->
+                    <img src="https://i.ibb.co.com/20rrYCzc/BERKODE-QRIS-IPB-MENGAJAR.png" 
+                         alt="QRIS Arkatara" 
+                         class="w-full h-auto rounded-2xl qris-img pointer-events-auto"
+                         id="main-qris">
+                </div>
+                <p class="text-[10px] text-slate-400 font-semibold mb-2 italic">*Tekan gambar untuk memperbesar</p>
+            </div>
+
+            <div class="flex items-center justify-center gap-2 py-3 px-4 bg-slate-50 rounded-2xl border border-slate-100">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Logo_QRIS.svg" class="h-4" alt="QRIS Logo">
+                <div class="h-3 w-[1px] bg-slate-300"></div>
+                <span class="text-[10px] text-slate-500 font-bold">Terverifikasi: IPB MENGAJAR</span>
+            </div>
+        </div>
+
+        <!-- ALTERNATIVE PAYMENT -->
+        <div class="bg-slate-900 rounded-[32px] p-6 text-white card-shadow">
+            <h3 class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-4">Transfer Manual</h3>
+            
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" class="w-6 invert brightness-0" alt="DANA">
+                </div>
+                <div>
+                    <p class="text-sm font-bold">DANA Digital</p>
+                    <p class="text-[11px] text-slate-400">Atas Nama: IPB MENGAJAR</p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-between bg-white/5 p-4 rounded-2xl border border-white/10">
+                <p class="text-lg font-black tracking-widest" id="acc-num">082342711327</p>
+                <button onclick="copyToClipboard()" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-xl text-[10px] font-black transition-all active:scale-95 shadow-lg shadow-blue-900/20">
+                    SALIN
+                </button>
+            </div>
+        </div>
+
+        <!-- REMINDER -->
+        <div class="bg-amber-50 rounded-2xl p-4 flex gap-3 border border-amber-100">
+            <i class="fas fa-info-circle text-amber-500 mt-1"></i>
+            <p class="text-[11px] text-amber-800 leading-relaxed font-medium">
+                Setelah melakukan scan atau transfer, jangan lupa untuk menekan tombol di bawah untuk mengunggah bukti pembayaran agar dicatat oleh bendahara.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- STICKY ACTION BUTTON -->
+    <div class="fixed bottom-0 left-0 w-full p-6 bg-gradient-to-t from-white via-white/90 to-transparent">
+        <div class="max-w-[420px] mx-auto">
+            <a href="https://drive.google.com/drive/folders/1gH3g5xxyDmp4Ik0umHG3dNKd_FzlXYeZ?usp=sharing" 
+               target="_blank" 
+               class="flex items-center justify-center gap-3 w-full bg-blue-600 text-white font-extrabold py-5 rounded-3xl shadow-xl shadow-blue-200 hover:bg-blue-700 transition-all active:scale-95">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>UPLOAD BUKTI SEKARANG</span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- TOAST NOTIFICATION -->
+<div id="toast">✅ Nomor berhasil disalin!</div>
+
+<script>
+    function copyToClipboard() {
+        const text = document.getElementById('acc-num').innerText;
+        const dummy = document.createElement("textarea");
+        document.body.appendChild(dummy);
+        dummy.value = text;
+        dummy.select();
+        document.execCommand("copy");
+        document.body.removeChild(dummy);
+
+        const toast = document.getElementById("toast");
+        toast.className = "show";
+        setTimeout(() => { toast.className = ""; }, 2500);
+    }
+
+    // Modal view for QRIS (Simple click to zoom)
+    const qris = document.getElementById('main-qris');
+    qris.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            if (qris.requestFullscreen) {
+                qris.requestFullscreen();
+            } else if (qris.webkitRequestFullscreen) {
+                qris.webkitRequestFullscreen();
+            }
+        } else {
+            document.exitFullscreen();
+        }
+    });
+</script>
+
+</body>
+</html>
