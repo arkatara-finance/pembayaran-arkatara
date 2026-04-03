@@ -183,8 +183,26 @@
                 </div>
             </div>
 
-            <!-- BUTTON UPLOAD -->
+            <!-- BUTTON UPLOAD & WARNING -->
             <div class="mt-8">
+                
+                <!-- NEW WARNING NOTE START -->
+                <div class="mb-4 bg-red-50 border border-red-200 rounded-2xl p-4 relative overflow-hidden shadow-sm">
+                    <div class="absolute top-0 left-0 w-1.5 h-full bg-red-500"></div>
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-exclamation-circle text-red-500 text-xl mt-0.5 animate-pulse"></i>
+                        <div>
+                            <p class="text-[10px] font-black text-red-600 uppercase tracking-widest mb-1">⚠️ WAJIB PERHATIKAN!</p>
+                            <p class="text-xs font-bold text-slate-700 leading-tight">Format nama file bukti bayar <span class="text-red-600 font-black border-b border-red-600">HARUS</span>:</p>
+                            <p class="mt-1.5 inline-block bg-red-100 text-red-700 text-[11px] font-black px-2 py-1 rounded-lg tracking-wide border border-red-200">
+                                NAMA LENGKAP_BULAN
+                            </p>
+                            <p class="text-[10px] text-slate-500 mt-1.5 italic font-semibold">Contoh: Tasya Anindya_Maret</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- NEW WARNING NOTE END -->
+
                 <a href="https://drive.google.com/drive/folders/1gH3g5xxyDmp4Ik0umHG3dNKd_FzlXYeZ?usp=sharing" 
                    target="_blank" 
                    class="flex items-center justify-center gap-3 w-full bg-slate-900 text-white font-extrabold py-5 rounded-3xl shadow-xl hover:bg-black active:scale-95 transition-all group">
@@ -221,6 +239,5 @@
     </script>
 </body>
 </html>
-
 
 
